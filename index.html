@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Abdullah Zaid | Hardware & Software Specialist</title>
+    <meta name="description" content="Abdullah Zaid - Electronics Engineer & CS Specialist. Expertise in C++, Linux, and Embedded Systems. Graduate with Excellence.">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&family=Tajawal:wght@400;700&family=Inter:wght@400;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="bg-grid"></div>
+
+    <nav class="navbar">
+        <div class="container flex-nav">
+            <div class="logo">ABDULLAH<span>.SYS</span></div>
+            <div class="nav-links-desktop">
+                <a href="#about" data-key="nav-about">About</a>
+                <a href="#skills" data-key="nav-skills">Skills</a>
+                <a href="#journey" data-key="nav-journey">Journey</a>
+                <a href="#projects" data-key="nav-projects">Projects</a>
+                <a href="#contact" data-key="nav-contact">Contact</a>
+            </div>
+            <div class="lang-picker">
+                <button onclick="changeLanguage('en')">EN</button>
+                <button onclick="changeLanguage('ar')">AR</button>
+                <button onclick="changeLanguage('he')">HE</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div class="hero-card reveal active">
+                <div class="terminal-header">
+                    <span class="t-dot red"></span><span class="t-dot yellow"></span><span class="t-dot green"></span>
+                    <span class="t-user">abdullah@linux: ~</span>
+                </div>
+                <div class="terminal-body">
+                    <h1 data-key="hero-title">Initialize <span class="highlight">Abdullah Zaid</span></h1>
+                    <p class="sub-text" data-key="hero-sub">> Hardware-Software Integration Specialist | Linux User</p>
+                    <div class="tech-stack">
+                        <span><i class="fab fa-linux"></i> Linux</span>
+                        <span><i class="fas fa-microchip"></i> Electronics</span>
+                        <span><i class="fab fa-python"></i> Python</span>
+                        <span><i class="fas fa-code"></i> C++ / C#</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <section id="about" class="glass-section reveal">
+            <h2 class="title" data-key="about-title">Profile_Summary</h2>
+            <p class="content" data-key="about-text">
+                High-achiever with a 3.3 Bagrut and Excellence in Physics, Electronics, and CS. 
+                Expert in building logical systems and software architecture. Linux is my daily driver.
+            </p>
+        </section>
+
+        <section id="tech-balance" class="reveal">
+            <h2 class="title" data-key="balance-title">Technical_Equilibrium</h2>
+            <div class="glass-section flex-center">
+                <canvas id="skillsRadar"></canvas>
+            </div>
+        </section>
+        
+
+        <section id="skills" class="reveal">
+            <h2 class="title" data-key="skills-title">Technical_Expertise</h2>
+            <div class="skills-grid-bars">
+                <div class="skill-bar-item">
+                    <div class="skill-info"><span>Electronics & Physics</span><span>85%</span></div>
+                    <div class="bar-outer"><div class="bar-inner" style="width: 95%;"></div></div>
+                </div>
+                <div class="skill-bar-item">
+                    <div class="skill-info"><span>C++ / Embedded Systems</span><span>80%</span></div>
+                    <div class="bar-outer"><div class="bar-inner" style="width: 90%;"></div></div>
+                </div>
+                <div class="skill-bar-item">
+                    <div class="skill-info"><span>Linux Environment</span><span>95%</span></div>
+                    <div class="bar-outer"><div class="bar-inner" style="width: 85%;"></div></div>
+                </div>
+                <div class="skill-bar-item">
+                    <div class="skill-info"><span>Python & Automation</span><span>70%</span></div>
+                    <div class="bar-outer"><div class="bar-inner" style="width: 80%;"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="journey" class="reveal">
+            <h2 class="title" data-key="journey-title">Academic_Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="year">2025</span>
+                    <h3 data-key="edu-1-title">Bagrut Graduation</h3>
+                    <p data-key="edu-1-desc">Focus on Physics, Electronics & CS. Grade: 3.3</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="year">2025</span>
+                    <h3 data-key="edu-2-title">Excellence Award</h3>
+                    <p data-key="edu-2-desc">Honored for technical excellence and scientific achievements (Hetstainot).</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="reveal">
+            <h2 class="title" data-key="projects-title">Deployed_Assets</h2>
+            <div class="project-grid">
+                <div class="p-card">
+                    <div class="p-icon"><i class="fas fa-microchip"></i></div>
+                    <h3 data-key="p1-title">Graduation Project</h3>
+                    <p data-key="p1-desc">Embedded system logic & circuit design for school graduation.</p>
+                    <a href="https://github.com/AbdAllah-Zaid3/My-School-Graduation-Project" class="p-btn">Link_Repo <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="p-card">
+                    <div class="p-icon"><i class="fas fa-terminal"></i></div>
+                    <h3 data-key="p2-title">Linux Optimizations</h3>
+                    <p data-key="p2-desc">Collection of shell scripts for system performance and automation.</p>
+                    <a href="https://github.com/AbdAllah-Zaid3" class="p-btn">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="container reveal">
+            <h2 class="title" data-key="contact-title">Contact_Gateway</h2>
+            <div class="glass-section contact-wrapper">
+                <p style="margin-bottom: 25px; color: var(--text-dim); text-align: center;" data-key="contact-hint">
+                    Ready to collaborate? Click below to send an encrypted message via your email app.
+                </p>
+                <div style="text-align: center;">
+                    <a href="mailto:alshiekhabdallahzaid@gmail.com?subject=Portfolio Contact&body=Hi Abdullah," 
+                       class="contact-btn-large">
+                        <i class="fas fa-envelope-open-text"></i> OPEN_GMAIL_APP
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="socials">
+                <a href="https://github.com/AbdAllah-Zaid3" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/abdalla-zaid-81926439b" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p data-key="footer">© 2026 Abdullah Zaid | Root Access Granted</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
