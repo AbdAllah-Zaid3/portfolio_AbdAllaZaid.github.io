@@ -1,341 +1,107 @@
-/* --- استيراد الخطوط الاحترافية --- */
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&family=Tajawal:wght@400;700&family=Inter:wght@400;800&display=swap');
+/* Abdullah_OS Zenith v8.0 - Style Overhaul */
 
-/* --- المتغيرات الأساسية (System Variables) --- */
 :root {
-    --primary: #00f2ff;       /* أزرق سايبر */
-    --secondary: #bcff00;     /* ليموني تقني */
-    --dark-bg: #08080a;       /* أسود عميق */
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --border-color: rgba(0, 242, 255, 0.15);
-    --text-main: #e0e0e0;
-    --text-dim: #a0a0a0;
-    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --gnome-blue: #3584e4;
+    --emerald-glow: rgba(46, 194, 126, 0.4);
 }
 
-/* --- الإعدادات العامة (Reset & Base) --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
+/* Background & Global Smoothening */
 body {
-    background-color: var(--dark-bg);
-    color: var(--text-main);
-    font-family: 'Inter', sans-serif; /* الخط الافتراضي */
-    line-height: 1.6;
-    overflow-x: hidden;
+    background: #241f31 radial-gradient(circle at 50% 50%, #352d4d 0%, #1a1a1a 100%);
+    background-size: cover;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* تبديل الخطوط بناءً على لغة الصفحة */
-[lang="ar"] body { font-family: 'Tajawal', sans-serif; }
-[lang="he"] body { font-family: 'Assistant', sans-serif; }
-
-/* --- تأثير شبكة الخلفية (Grid Background) --- */
-.bg-grid {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: 
-        linear-gradient(var(--border-color) 1px, transparent 1px), 
-        linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
-    background-size: 50px 50px;
-    z-index: -1;
-    mask-image: radial-gradient(circle, black, transparent 85%);
-    opacity: 0.2;
+/* GNOME Window States */
+.window-active {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) scale(1) !important;
 }
 
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 0 20px;
+.window-minimized {
+    opacity: 0 !important;
+    transform: translate(-50%, 100%) scale(0.5) !important;
 }
 
-/* --- حركات الظهور (Animations) --- */
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: var(--transition);
+/* Terminal Cursor Blink */
+.blink {
+    animation: cursor-blink 1s step-end infinite;
 }
 
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
+@keyframes cursor-blink {
+    from, to { border-right-color: transparent; }
+    50% { border-right-color: #2ec27e; }
 }
 
-/* --- شريط التنقل (Navbar) --- */
-.navbar {
-    padding: 20px 0;
-    background: rgba(8, 8, 10, 0.8);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid var(--border-color);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+/* Custom GNOME Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
 }
 
-.flex-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-weight: 800;
-    letter-spacing: 2px;
-    font-size: 1.2rem;
-}
-
-.logo span {
-    color: var(--primary);
-    text-shadow: 0 0 10px var(--primary);
-}
-
-.nav-links-desktop a {
-    color: var(--text-dim);
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 0.9rem;
-    transition: var(--transition);
-}
-
-.nav-links-desktop a:hover { color: var(--primary); }
-
-.lang-picker button {
+::-webkit-scrollbar-track {
     background: transparent;
-    border: 1px solid var(--border-color);
-    color: #fff;
-    padding: 5px 12px;
-    margin-left: 8px;
-    cursor: pointer;
-    font-family: monospace;
-    transition: var(--transition);
-    border-radius: 4px;
 }
 
-.lang-picker button:hover {
-    background: var(--primary);
-    color: #000;
-    box-shadow: 0 0 15px var(--primary);
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    border: 2px solid transparent;
+    background-clip: content-box;
 }
 
-/* --- بطاقة الـ Hero (Terminal Style) --- */
-.hero { padding: 80px 0; }
-
-.hero-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 15px;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
-.terminal-header {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 12px 20px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--border-color);
+/* Glassmorphism Cards */
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
 }
 
-.t-dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
-.red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
-
-.t-user {
-    font-family: 'Courier New', monospace;
-    font-size: 0.8rem;
-    color: var(--text-dim);
-    margin-left: 10px;
+.glass-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--gnome-blue);
+    transform: translateY(-5px);
 }
 
-.hero-card h1 { font-size: 3rem; padding: 40px 40px 10px; }
-.highlight { color: var(--primary); text-shadow: 0 0 20px rgba(0, 242, 255, 0.4); }
-.sub-text { padding: 0 40px; font-size: 1.5rem; color: var(--text-dim); min-height: 1.6em; }
-
-.tech-stack {
-    padding: 30px 40px 40px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.tech-stack span {
-    background: rgba(0, 242, 255, 0.05);
-    border: 1px solid var(--border-color);
-    padding: 6px 15px;
-    border-radius: 5px;
-    font-size: 0.85rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* --- العناوين والأقسام --- */
-.title {
-    margin: 60px 0 30px;
-    font-size: 1.8rem;
-    border-left: 4px solid var(--secondary);
-    padding-left: 15px;
-}
-
-.glass-section {
-    background: var(--glass-bg);
-    border: 1px solid var(--border-color);
-    padding: 40px;
-    border-radius: 15px;
-}
-
-/* --- الرسم البياني وأشرطة المهارات --- */
-.flex-center { display: flex; justify-content: center; align-items: center; padding: 20px; }
-#skillsRadar { max-width: 450px !important; filter: drop-shadow(0 0 15px var(--primary)); }
-
-.skills-grid-bars {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.skill-info { display: flex; justify-content: space-between; margin-bottom: 10px; }
-
-.bar-outer { background: rgba(255, 255, 255, 0.05); height: 10px; border-radius: 10px; }
-
-.bar-inner {
-    height: 100%;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-    border-radius: 10px;
-    box-shadow: 0 0 10px var(--primary);
-    transition: width 1.5s ease-in-out;
-}
-
-/* --- المسار الزمني (Timeline) --- */
-.timeline { border-left: 2px solid var(--border-color); padding-left: 30px; margin-left: 10px; }
-
-.timeline-item { position: relative; margin-bottom: 40px; }
-
-.timeline-item::before {
-    content: '';
-    width: 16px; height: 16px;
-    background: var(--secondary);
-    border: 4px solid var(--dark-bg);
-    position: absolute;
-    left: -39px; top: 5px;
+/* Dash (Dock) Styling Extensions */
+.dash-indicator {
+    width: 4px;
+    height: 4px;
+    background: white;
     border-radius: 50%;
+    position: absolute;
+    bottom: 2px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.year { display: block; color: var(--primary); font-weight: bold; margin-bottom: 5px; }
-
-/* --- المشاريع (Projects) --- */
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
+.dash-item-active .dash-indicator {
+    opacity: 1;
 }
 
-.p-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--border-color);
-    padding: 30px;
-    border-radius: 15px;
-    transition: var(--transition);
+/* Form Styling */
+input[type="range"] {
+    -webkit-appearance: none;
+    background: rgba(255, 255, 255, 0.1);
+    height: 6px;
+    border-radius: 5px;
 }
 
-.p-card:hover {
-    border-color: var(--primary);
-    transform: translateY(-10px);
-    background: rgba(0, 242, 255, 0.05);
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    cursor: pointer;
 }
 
-.p-icon { font-size: 2.2rem; color: var(--secondary); margin-bottom: 15px; }
-
-.p-btn {
-    display: inline-block;
-    margin-top: 20px;
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
-/* --- بوابة التواصل (Contact) --- */
-.contact-wrapper { max-width: 700px; margin: 0 auto; }
-
-.contact-btn-large {
-    display: inline-block;
-    padding: 20px 40px;
-    font-size: 1.2rem;
-    border: 1px solid var(--primary);
-    color: var(--primary);
-    text-decoration: none;
-    border-radius: 10px;
-    background: rgba(0, 242, 255, 0.05);
-    transition: var(--transition);
-}
-
-.contact-btn-large:hover {
-    background: var(--primary);
-    color: #000;
-    box-shadow: 0 0 30px var(--primary);
-    transform: scale(1.05);
-}
-
-/* --- دعم اللغات من اليمين لليسار (RTL Fixes) --- */
-[dir="rtl"] { text-align: right; }
-
-[dir="rtl"] .title {
-    border-left: none;
-    border-right: 4px solid var(--secondary);
-    padding-left: 0;
-    padding-right: 15px;
-}
-
-[dir="rtl"] .timeline {
-    border-left: none;
-    border-right: 2px solid var(--border-color);
-    padding-left: 0;
-    padding-right: 30px;
-    margin-left: 0;
-    margin-right: 10px;
-}
-
-[dir="rtl"] .timeline-item::before { left: auto; right: -39px; }
-
-[dir="rtl"] .nav-links-desktop a { margin: 0 0 0 25px; }
-
-[dir="rtl"] .t-dot { margin-right: 0; margin-left: 8px; }
-
-[dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
-
-/* --- تأثيرات إضافية --- */
-.cursor { color: var(--primary); animation: blink 1s infinite; }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-/* --- التذييل (Footer) --- */
-.footer {
-    padding: 80px 0 40px;
-    text-align: center;
-    border-top: 1px solid var(--border-color);
-    margin-top: 100px;
-}
-
-.socials a {
-    color: #fff;
-    font-size: 1.8rem;
-    margin: 0 15px;
-    transition: var(--transition);
-}
-
-.socials a:hover { color: var(--primary); transform: scale(1.2); }
-
-/* --- استجابة الجوال (Responsive) --- */
-@media (max-width: 768px) {
-    .nav-links-desktop { display: none; }
-    .hero-card h1 { font-size: 2.2rem; padding: 30px 20px 10px; }
-    .sub-text { font-size: 1.1rem; padding: 0 20px; }
-    .tech-stack { padding: 20px; }
-    .hero { padding: 40px 0; }
+/* Utility for code/terminal content */
+.fira {
+    font-family: 'Fira Code', monospace;
 }
