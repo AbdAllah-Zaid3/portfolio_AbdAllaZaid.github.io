@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
@@ -158,5 +158,344 @@
     </footer>
 
     <script src="script.js"></script>
+</body>
+
+</html>
+-->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdullah_OS v10.0 | Quantum Zenith</title>
+    <!-- Frameworks -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --gnome-blue: #3584e4;
+            --emerald: #2ec27e;
+        }
+        body {
+            background: #1a1a1a radial-gradient(circle at center, #352d4d 0%, #1a1a1a 100%);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            user-select: none;
+        }
+        .gnome-window {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translate(-50%, -40%) scale(0.95);
+        }
+        .gnome-window.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .term-container {
+            font-family: 'Fira Code', monospace;
+            scrollbar-width: thin;
+            scrollbar-color: #444 transparent;
+        }
+        .blink {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .app-card:hover .icon-box {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(53, 132, 228, 0.4);
+        }
+        input[type="range"] {
+            accent-color: var(--gnome-blue);
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Top Bar -->
+    <header class="h-8 bg-black/80 backdrop-blur-xl flex justify-between items-center px-4 text-xs font-semibold fixed top-0 w-full z-[5000] border-b border-white/5">
+        <div class="flex gap-4 items-center">
+            <div class="hover:bg-white/10 px-3 py-1 rounded-full cursor-pointer transition" onclick="toggleOverlay('activities')">Activities</div>
+            <div id="active-app-name" class="text-white/50">Desktop</div>
+        </div>
+        <div class="absolute left-1/2 -translate-x-1/2 cursor-default" id="top-clock">Feb 14 22:45</div>
+        <div class="flex items-center gap-3 cursor-pointer hover:bg-white/10 px-2 py-0.5 rounded-full transition" onclick="toggleOverlay('quick-settings')">
+            <div class="flex gap-2 text-[10px] items-center">
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-volume-up"></i>
+                <i class="fas fa-battery-full text-emerald-400"></i>
+            </div>
+            <i class="fas fa-angle-down text-[10px] opacity-50"></i>
+        </div>
+    </header>
+
+    <!-- Quick Settings Dropdown -->
+    <div id="quick-settings" class="hidden absolute top-10 right-2 w-72 glass rounded-2xl p-4 shadow-2xl z-[5100]">
+        <div class="grid grid-cols-2 gap-2 mb-4">
+            <div class="bg-blue-600 p-3 rounded-xl flex items-center gap-3"><i class="fas fa-wifi"></i><span class="text-[10px]">Zenith_5G</span></div>
+            <div class="bg-white/10 p-3 rounded-xl flex items-center gap-3"><i class="fas fa-bluetooth"></i><span class="text-[10px]">On</span></div>
+        </div>
+        <div class="space-y-3">
+            <div class="flex items-center gap-3"><i class="fas fa-sun opacity-50"></i><input type="range" class="w-full"></div>
+            <div class="flex items-center gap-3"><i class="fas fa-volume-up opacity-50"></i><input type="range" class="w-full"></div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-white/10 flex justify-between items-center text-[10px]">
+            <span>Abdullah Zaid</span>
+            <i class="fas fa-power-off hover:text-red-500 cursor-pointer"></i>
+        </div>
+    </div>
+
+    <!-- Activities Overlay -->
+    <div id="activities-overlay" class="hidden fixed inset-0 bg-black/20 backdrop-blur-[40px] z-[4500] flex flex-col items-center pt-24 transition-all duration-500">
+        <div class="w-[500px] relative mb-12">
+            <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 opacity-30"></i>
+            <input type="text" id="app-search" placeholder="Type to search..." 
+                   class="w-full bg-[#242424] border border-white/10 rounded-full py-3 px-14 text-lg outline-none focus:border-blue-500"
+                   onkeyup="handleSearch(this.value)">
+        </div>
+        <div id="search-results" class="grid grid-cols-4 gap-12">
+            <!-- Dynamically populated -->
+        </div>
+    </div>
+
+    <!-- Desktop Content -->
+    <main class="h-full pt-12 p-8 grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-8 content-start" id="desktop">
+        <!-- Icons via JS -->
+    </main>
+
+    <!-- App Window -->
+    <div id="app-window" class="hidden fixed top-1/2 left-1/2 gnome-window w-[850px] h-[550px] bg-[#242424] rounded-xl shadow-2xl border border-white/10 flex flex-col overflow-hidden z-[4000]">
+        <div class="h-12 bg-[#303030] flex items-center justify-between px-4 cursor-default">
+            <div class="w-20"></div>
+            <div class="text-sm font-bold opacity-80" id="win-title">Terminal</div>
+            <div class="flex gap-2">
+                <button onclick="closeApp()" class="w-7 h-7 hover:bg-red-500 rounded-full flex items-center justify-center transition">
+                    <i class="fas fa-times text-[10px]"></i>
+                </button>
+            </div>
+        </div>
+        <div class="flex-1 bg-[#1e1e1e] overflow-auto" id="app-body"></div>
+    </div>
+
+    <!-- Bottom Dash -->
+    <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 z-[4100]">
+        <div class="glass p-2 rounded-[24px] flex gap-2 items-center" id="dock">
+            <!-- Dock via JS -->
+        </div>
+    </nav>
+
+    <script>
+        const appData = {
+            profile: { title: "Bio.txt", icon: "fa-user-circle", color: "bg-blue-600", 
+                content: `<div class="p-10"><h1 class="text-3xl font-bold mb-4">Abdullah Zaid</h1>
+                <p class="text-white/60 leading-relaxed mb-6">Electronics & Computer Science Specialist. <br>Focused on high-performance logic and embedded systems.</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 bg-white/5 rounded-xl border border-white/10 font-bold text-blue-400">Excellence Honors (3.3)</div>
+                    <div class="p-4 bg-white/5 rounded-xl border border-white/10 font-bold text-emerald-400">Linux Architect</div>
+                </div></div>` 
+            },
+            terminal: { title: "Console", icon: "fa-terminal", color: "bg-zinc-800", isTerminal: true },
+            skills: { title: "Stats.sh", icon: "fa-chart-pie", color: "bg-orange-500", 
+                content: `<div class="p-8 h-full flex flex-col">
+                    <h2 class="text-xl font-bold mb-4">Skill Proficiency</h2>
+                    <canvas id="skillsChart"></canvas>
+                </div>` 
+            },
+            hardware: { title: "Hardware", icon: "fa-microchip", color: "bg-emerald-600",
+                content: `<div class="p-10 grid grid-cols-2 gap-6">
+                    <div class="p-6 bg-white/5 rounded-2xl">
+                        <i class="fas fa-memory text-emerald-400 text-2xl mb-3"></i>
+                        <h3 class="font-bold">Embedded Systems</h3>
+                        <p class="text-xs opacity-50">ESP32, STM32, Arduino</p>
+                    </div>
+                    <div class="p-6 bg-white/5 rounded-2xl">
+                        <i class="fas fa-microchip text-blue-400 text-2xl mb-3"></i>
+                        <h3 class="font-bold">Circuit Design</h3>
+                        <p class="text-xs opacity-50">PCB Routing, Analog Logic</p>
+                    </div>
+                </div>`
+            }
+        };
+
+        let termHistory = [`<span class="text-blue-400">Welcome to Zenith OS v10.0 Terminal.</span>`, `Type 'help' to start.`];
+        
+        function renderUI() {
+            const desk = document.getElementById('desktop');
+            const dock = document.getElementById('dock');
+            
+            Object.keys(appData).forEach(key => {
+                const app = appData[key];
+                // Desktop
+                desk.innerHTML += `
+                    <div class="app-card flex flex-col items-center gap-2 cursor-pointer group" onclick="openApp('${key}')">
+                        <div class="icon-box w-16 h-16 ${app.color} rounded-2xl flex items-center justify-center text-3xl transition-all duration-300 shadow-xl">
+                            <i class="fas ${app.icon}"></i>
+                        </div>
+                        <span class="text-[11px] font-semibold drop-shadow-md text-center">${app.title}</span>
+                    </div>
+                `;
+                // Dock
+                dock.innerHTML += `
+                    <div class="w-12 h-12 flex items-center justify-center rounded-xl hover:bg-white/10 cursor-pointer transition text-white/50 hover:text-white" onclick="openApp('${key}')">
+                        <i class="fas ${app.icon} text-xl"></i>
+                    </div>
+                `;
+            });
+            // Dock separator & Github
+            dock.innerHTML += `<div class="w-[1px] h-8 bg-white/10 mx-1"></div>
+                <div class="w-12 h-12 flex items-center justify-center rounded-xl hover:bg-white/10 cursor-pointer transition text-white/50 hover:text-white" onclick="window.open('https://github.com/AbdAllah-Zaid3')">
+                    <i class="fab fa-github text-xl"></i>
+                </div>`;
+        }
+
+        function openApp(key) {
+            const win = document.getElementById('app-window');
+            const body = document.getElementById('app-body');
+            const app = appData[key];
+            
+            document.getElementById('win-title').innerText = app.title;
+            document.getElementById('active-app-name').innerText = app.title;
+            
+            if(app.isTerminal) {
+                renderTerminal();
+            } else {
+                body.innerHTML = app.content;
+                if(key === 'skills') setTimeout(initChart, 200);
+            }
+            
+            win.classList.remove('hidden');
+            setTimeout(() => win.classList.add('active'), 10);
+            toggleOverlay('activities', true);
+        }
+
+        function closeApp() {
+            const win = document.getElementById('app-window');
+            win.classList.remove('active');
+            setTimeout(() => {
+                win.classList.add('hidden');
+                document.getElementById('active-app-name').innerText = "Desktop";
+            }, 300);
+        }
+
+        function renderTerminal() {
+            const body = document.getElementById('app-body');
+            body.innerHTML = `
+                <div class="term-container p-6 text-emerald-400 text-sm h-full flex flex-col overflow-auto" onclick="document.getElementById('cli').focus()">
+                    <div id="term-log" class="mb-2"></div>
+                    <div class="flex gap-2">
+                        <span class="text-blue-400 font-bold">abdullah@zenith:~$</span>
+                        <input type="text" id="cli" class="bg-transparent border-none outline-none text-white flex-1" autofocus>
+                    </div>
+                </div>
+            `;
+            const log = document.getElementById('term-log');
+            log.innerHTML = termHistory.map(line => `<div>${line}</div>`).join('');
+            
+            document.getElementById('cli').addEventListener('keydown', (e) => {
+                if(e.key === 'Enter') {
+                    const val = e.target.value.trim().toLowerCase();
+                    handleCmd(val);
+                    e.target.value = '';
+                }
+            });
+        }
+
+        function handleCmd(cmd) {
+            if(!cmd) return;
+            termHistory.push(`<div class="flex gap-2"><span class="text-blue-400 font-bold">abdullah@zenith:~$</span><span>${cmd}</span></div>`);
+            
+            let output = "";
+            switch(cmd) {
+                case 'help': output = "Available commands: help, neofetch, ls, clear, whoami, exit"; break;
+                case 'neofetch': output = `<div class="flex gap-4"><span class="text-blue-500 text-4xl"><i class="fab fa-linux"></i></span><div><b>OS:</b> Abdullah_OS Zenith<br><b>Host:</b> Haifa-CS-Lab<br><b>Shell:</b> zsh 5.9</div></div>`; break;
+                case 'ls': output = "bio.txt  stats.sh  hardware_logs/  projects/"; break;
+                case 'whoami': output = "Abdullah Zaid: Hardware Specialist & Systems Architect"; break;
+                case 'clear': termHistory = []; renderTerminal(); return;
+                case 'exit': closeApp(); return;
+                default: output = `bash: command not found: ${cmd}`;
+            }
+            
+            if(output) termHistory.push(`<div class="text-white opacity-80 mb-2">${output}</div>`);
+            renderTerminal();
+            const container = document.querySelector('.term-container');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Hardware', 'C++', 'Linux', 'PCB Design', 'Verilog', 'Physics'],
+                    datasets: [{
+                        data: [95, 88, 98, 90, 82, 94],
+                        backgroundColor: 'rgba(53, 132, 228, 0.2)',
+                        borderColor: '#3584e4',
+                        pointBackgroundColor: '#fff'
+                    }]
+                },
+                options: {
+                    scales: { r: { grid: { color: 'rgba(255,255,255,0.1)' }, angleLines: { color: 'rgba(255,255,255,0.1)' }, ticks: { display: false } } },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function toggleOverlay(id, forceClose = false) {
+            const el = document.getElementById(id === 'activities' ? 'activities-overlay' : 'quick-settings');
+            if(forceClose) { el.classList.add('hidden'); return; }
+            el.classList.toggle('hidden');
+            if(id === 'activities' && !el.classList.contains('hidden')) {
+                document.getElementById('app-search').focus();
+                handleSearch('');
+            }
+        }
+
+        function handleSearch(val) {
+            const results = document.getElementById('search-results');
+            results.innerHTML = "";
+            Object.keys(appData).forEach(key => {
+                if(key.includes(val.toLowerCase()) || appData[key].title.toLowerCase().includes(val.toLowerCase())) {
+                    const app = appData[key];
+                    results.innerHTML += `
+                        <div class="flex flex-col items-center gap-3 p-6 bg-white/5 rounded-3xl hover:bg-white/10 cursor-pointer transition" onclick="openApp('${key}')">
+                            <div class="w-20 h-20 ${app.color} rounded-2xl flex items-center justify-center text-4xl shadow-lg"><i class="fas ${app.icon}"></i></div>
+                            <span class="font-bold">${app.title}</span>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        // Clock Update
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('top-clock').innerText = now.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false });
+        }, 1000);
+
+        // Global Click to close menus
+        window.addEventListener('click', (e) => {
+            if(!e.target.closest('.system-status-group') && !e.target.closest('#quick-settings')) {
+                document.getElementById('quick-settings').classList.add('hidden');
+            }
+        });
+
+        // Bootstrap
+        renderUI();
+    </script>
 </body>
 </html>
